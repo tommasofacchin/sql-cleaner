@@ -9,6 +9,7 @@ container.innerHTML = `
   <div class="sql-cleaner">
     <div class="sql-cleaner__header">
       <h2>SQL Cleaner</h2>
+      <p class="subtitle">Made by Tommaso Facchin</p>
       <div class="sql-cleaner__toolbar">
         <button id="paste-btn" class="sql-btn">Paste</button>
         <button id="paste-copy-btn" class="sql-btn">Paste & Copy</button>

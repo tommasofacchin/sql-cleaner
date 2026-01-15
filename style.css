@@ -20,7 +20,7 @@
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--text);
     display: flex;
     background: var(--bg-soft);
@@ -37,13 +37,18 @@ body {
 
     /* Title */
     .sql-cleaner h2 {
-        margin: 0;
-        padding: 24px;
-        font-size: 22px;
+        margin: 2% 0 0 0;
+        font-size: 24px;
         font-weight: 600;
         letter-spacing: 0.04em;
         text-align: center;
     }
+
+.subtitle {
+    margin: 4px 0 30px 0;
+    font-size: 14px;
+    color: var(--muted);
+}
 
 /* Two-column row */
 .sql-cleaner__row {
@@ -71,20 +76,20 @@ body {
     /* Shared textarea styles (left column) */
     .sql-cleaner__col textarea {
         width: 100%;
-        height: 600px; 
+        height: 600px;
         padding: 12px;
         border-radius: var(--radius);
         border: 1px solid var(--border);
         background: var(--bg);
         color: var(--text);
-        font-family: "Courier New", monospace;
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         font-size: 14px;
         line-height: 1.5;
         outline: none;
         white-space: pre;
         overflow-x: auto;
         overflow-y: auto;
-        resize: none; 
+        resize: none;
         box-sizing: border-box;
         /* Modern scrollbar (Firefox) */
         scrollbar-width: thin;
@@ -163,19 +168,19 @@ body {
 /* Right box (highlighted SQL output) */
 .sql-output {
     width: 100%;
-    height: 600px; 
+    height: 600px;
     padding: 12px;
     border-radius: var(--radius);
     border: 1px solid var(--border);
     background: var(--bg);
     color: var(--text);
-    font-family: "Courier New", monospace;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: 14px;
     line-height: 1.5;
     white-space: pre;
     overflow: auto;
     margin: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: var(--accent) var(--bg-soft);
 }
