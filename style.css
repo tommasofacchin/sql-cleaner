@@ -1,18 +1,17 @@
 ﻿:root {
-    /* Theme colors */
-    --bg: #0f172a;
-    --bg-soft: #111827;
-    --accent: #38bdf8;
-    --accent-soft: rgba(56, 189, 248, 0.15);
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-    --border: #1f2937;
-    /* Layout / effects */
+    /* Core background & surface */
+    --bg: #121212;
+    --bg-soft: #1a1a1a; 
+    --accent: #00c2ff; 
+    --accent-soft: rgba(0, 194, 255, 0.15);
+    --text: #f9fafb; 
+    --muted: #9ca3af; 
+    --border: #2a2a2a;
     --radius: 10px;
-    --shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
-    /* Debug / temporary color */
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
     --tmp: #ffffff;
 }
+
 
 * {
     box-sizing: border-box;
@@ -126,28 +125,40 @@ body {
     justify-content: center;
 }
 
-    .sql-cleaner__actions button {
-        padding: 10px 20px;
-        border-radius: 999px;
-        border: 1px solid var(--border);
-        background: var(--bg);
-        color: var(--text);
-        font-size: 14px;
-        cursor: pointer;
-        transition: background 0.15s ease, border-color 0.15s ease;
+
+/* Reusable button style */
+.sql-btn {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+    .sql-btn:hover:not(:disabled) {
+        background: var(--accent-soft);
+        border-color: var(--accent);
+        color: var(--accent);
     }
 
-        .sql-cleaner__actions button:hover:not(:disabled) {
-            background: var(--accent-soft);
-            border-color: var(--accent);
-        }
+    .sql-btn:disabled {
+        background: var(--bg-soft);
+        border-color: var(--border);
+        color: var(--muted);
+        cursor: not-allowed;
+    }
 
-        .sql-cleaner__actions button:disabled {
-            background: var(--bg-soft);
-            border-color: var(--border);
-            color: var(--muted);
-            cursor: not-allowed;
-        }
+/* Bottom actions row */
+.sql-cleaner__actions {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px 20px;
+    justify-content: center;
+}
+
 
 /* Right box (highlighted SQL output) */
 .sql-output {
@@ -183,3 +194,57 @@ body {
         color: var(--muted);
         font-style: italic;
     }
+
+/* Header container */
+.sql-cleaner__header {
+    padding: 24px;
+    text-align: center;
+}
+
+/* Toolbar under title (Paste / Paste & Copy / checkbox) */
+.sql-cleaner__toolbar {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.sql-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sql-toggle__label {
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.1s ease-in-out; 
+}
+
+    .sql-toggle__label:hover {
+        color: var(--accent);
+    }
+
+.sql-toggle__checkbox:checked + .sql-toggle__label {
+    color: var(--accent);
+}
+
+
+
+
+.visually-hidden-checkbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}

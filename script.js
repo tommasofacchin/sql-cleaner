@@ -7,15 +7,23 @@ if (!container) {
 // Insert the app HTML with Paste + Paste&Copy + checkbox
 container.innerHTML = `
   <div class="sql-cleaner">
-    <div style="padding: 24px; text-align: center;">
+    <div class="sql-cleaner__header">
       <h2>SQL Cleaner</h2>
-      <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px;">
-        <button id="paste-btn" style="padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; cursor: pointer; transition: all 0.15s ease;">Paste</button>
-        <button id="paste-copy-btn" style="padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 14px; cursor: pointer; transition: all 0.15s ease;">Paste & Copy</button>
-        <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); cursor: pointer; user-select: none;">
-          <input type="checkbox" id="remove-comments" checked>
-          <span>Remove comments</span>
-        </label>
+      <div class="sql-cleaner__toolbar">
+        <button id="paste-btn" class="sql-btn">Paste</button>
+        <button id="paste-copy-btn" class="sql-btn">Paste & Copy</button>
+
+        <div class="sql-toggle">
+          <input
+            type="checkbox"
+            id="remove-comments"
+            class="sql-toggle__checkbox visually-hidden-checkbox"
+            checked
+          >
+          <label for="remove-comments" class="sql-toggle__label">
+            Remove comments
+          </label>
+        </div>
       </div>
     </div>
     <div class="sql-cleaner__row">
@@ -29,10 +37,12 @@ container.innerHTML = `
       </div>
     </div>
     <div class="sql-cleaner__actions">
-      <button id="copy-btn">Copy to clipboard</button>
+      <button id="copy-btn" class="sql-btn">Copy to clipboard</button>
     </div>
   </div>
 `;
+
+
 
 // DOM elements
 const input = document.getElementById("sql-input");
@@ -148,15 +158,20 @@ const updateOutput = () => {
     output.innerHTML = highlightSql(textToProcess);
 };
 
-// Paste button handler (focus + suggest manual paste)
-pasteBtn.addEventListener("click", () => {
-    input.focus();
-    input.select();
-    pasteBtn.textContent = "Ctrl+V";
-    setTimeout(() => {
-        pasteBtn.textContent = "Paste";
-    }, 1500);
+
+pasteBtn.addEventListener("click", async () => {
+    try {
+        const text = await navigator.clipboard.readText(); 
+
+        input.value = text;
+
+        updateOutput();
+    } catch (err) {
+    }
 });
+
+
+
 
 // Paste & Copy button handler
 pasteCopyBtn.addEventListener("click", async () => {
@@ -170,9 +185,6 @@ pasteCopyBtn.addEventListener("click", async () => {
             const text = await navigator.clipboard.readText();
             input.value = text;
         } catch {
-            // Fallback: user does Ctrl+V manually (textarea already focused)
-            pasteCopyBtn.textContent = "Ctrl+V first";
-            setTimeout(() => pasteCopyBtn.textContent = "Paste & Copy", 1500);
             return;
         }
 
@@ -185,17 +197,9 @@ pasteCopyBtn.addEventListener("click", async () => {
 
         await navigator.clipboard.writeText(textToCopy);
 
-        pasteCopyBtn.textContent = "Pasted & Copied!";
-        setTimeout(() => {
-            pasteCopyBtn.textContent = "Paste & Copy";
-        }, 1500);
 
     } catch (err) {
         console.error("Paste & Copy error:", err);
-        pasteCopyBtn.textContent = "Failed";
-        setTimeout(() => {
-            pasteCopyBtn.textContent = "Paste & Copy";
-        }, 1500);
     }
 });
 
