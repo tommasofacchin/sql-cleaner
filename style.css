@@ -48,6 +48,7 @@ body {
     margin: 4px 0 30px 0;
     font-size: 14px;
     color: var(--muted);
+    font-weight: 600;
 }
 
 /* Two-column row */
@@ -68,6 +69,7 @@ body {
         display: block;
         margin-bottom: 8px;
         font-size: 12px;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.08em;
         color: var(--muted);
@@ -139,6 +141,7 @@ body {
     background: var(--bg);
     color: var(--text);
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
@@ -215,6 +218,13 @@ body {
     gap: 20px;
 }
 
+.sql-toggle-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px; 
+
+}
 .sql-toggle {
     display: flex;
     align-items: center;
@@ -253,3 +263,6 @@ body {
     overflow: hidden;
     white-space: nowrap;
 }
+
+
+
