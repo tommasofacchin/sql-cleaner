@@ -156,19 +156,43 @@ const highlightSql = (sql) => {
 
 // Remove comments
 const stripComments = (sql) => {
-    // Remove multiline comments /* ... */
-    let result = sql.replace(/\/\*[\s\S]*?\*\//g, "");
+    let result = sql;
+    let inComment = false;
+    let commentDepth = 0;
 
-    // Remove all line comments --
-    result = result.replace(/--.*$/gm, "");
+    let cleanedResult = '';
+    let i = 0;
 
-    return result;
+    while (i < result.length) {
+        if (result[i] === '/' && result[i + 1] === '*') {
+            inComment = true;
+            commentDepth++;
+            i += 2; 
+        } else if (result[i] === '*' && result[i + 1] === '/') {
+            commentDepth--;
+            if (commentDepth === 0) {
+                inComment = false;
+            }
+            i += 2; 
+        } else if (!inComment) {
+            cleanedResult += result[i];
+            i++;
+        } else {
+            i++;
+        }
+    }
+
+    cleanedResult = cleanedResult.replace(/--.*$/gm, "");
+
+    return cleanedResult;
 };
+
+
+
 
 // Collapse multiple blank lines to at most one blank line
 const collapseBlankLines = (sql) => {
-    // Non ci devono essere 2+ righe vuote di fila
-    return sql.replace(/\n\s*\n+/g, "\n\n"); // [web:23]
+    return sql.replace(/\n\s*\n+/g, "\n\n"); 
 };
 
 // Full clean pipeline based on checkboxes
@@ -198,7 +222,6 @@ pasteBtn.addEventListener("click", async () => {
         input.value = text;
         updateOutput();
     } catch (err) {
-        // ignore
     }
 });
 
